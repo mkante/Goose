@@ -24,8 +24,10 @@ public class GoosePlugin implements Plugin<Project>
                     break;
                 case 'make':
                     String name = "";
-                    mgrTask.createFile(prefix);
+                    File dir = mgrTask.createFile(prefix);
+                    println("migration: "+dir.path+" created");
                     break;
+                
                 case 'migrate':
                     mgrTask.run();
                     break;

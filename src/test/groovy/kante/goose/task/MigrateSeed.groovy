@@ -13,4 +13,12 @@ abstract class MigrateSeed
             f.delete();
         }
     }
+
+    public static void data2() {
+
+        File f = new File("/tmp/goose_mgs_2");
+        if (f.exists()) {
+            f.delete();
+        }
+    }
 }

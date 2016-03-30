@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:goose-mysql.xml")
 @ActiveProfiles("mysql")
-class MigrateTest
+    class MigrateTest
 {
     @Autowired
     ExtentionParameter extParam;
@@ -56,5 +56,25 @@ class MigrateTest
         // init second time
         mg.init();
         assertTrue(true);
+    }
+
+    @Test
+    public void createFile() {
+
+        File f1 = new File("/tmp/goose_mgs_2");
+        MigrateSeed.data2();
+
+        extParam.dir = f1.path;
+        Migrate mg = new Migrate(extParam);
+
+        File f2 = mg.createFile("DDL-1") ;
+
+        assertTrue(f2.isDirectory());
+
+        File upFile = new File(f2, "up.sql");
+        File downFile = new File(f2, "down.sql");
+
+        assertTrue(upFile.isFile());
+        assertTrue(downFile.isFile());
     }
 }

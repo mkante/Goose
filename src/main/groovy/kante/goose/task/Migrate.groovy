@@ -4,8 +4,10 @@ import kante.goose.DB
 import kante.goose.ExtentionParameter
 import kante.goose.template.BaseTemplate
 import kante.goose.template.TemplateFactory
+import kante.goose.util.FileResolver
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import static java.lang.System.out;
 
 /**
  * Created by moh on 3/30/16.
@@ -42,8 +44,22 @@ public class Migrate
         DB.SQL.execute(sql);
     }
 
-    public void createFile(String name) {
+    public File createFile(String name) {
 
+        String fileName = FileResolver.newDirName(name);
+
+        File dir = new File(config.dir+"/"+fileName);
+        log.debug("Creating migration file: "+dir.path);
+
+        dir.mkdirs();
+
+        File up = new File(dir, "up.sql");
+        up.createNewFile();
+
+        File down = new File(dir, "down.sql");
+        down.createNewFile();
+
+        return dir;
     }
 
     public void run() {
@@ -61,4 +77,5 @@ public class Migrate
     public void next() {
 
     }
+
 }
