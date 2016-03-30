@@ -1,0 +1,49 @@
+<beans profile="mysql" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <context:property-placeholder location="goose-test.properties"></context:property-placeholder>
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod"
+                  value="kante.goose.DB.init"/>
+        <property name="arguments">
+            <map>
+                <entry key="url" value="${mysql.url}" />
+                <entry key="user" value="${mysql.user}" />
+                <entry key="password" value="${mysql.password}" />
+                <entry key="driver" value="${mysql.driver}" />
+            </map>
+        </property>
+    </bean>
+
+    <bean class="kante.goose.ExtentionParameter">
+        <property name="db">
+            <bean class="kante.goose.ExtentionParameter.DBParams">
+                <property name="url" value="${mysql.url}"></property>
+                <property name="user" value="${mysql.user}"></property>
+                <property name="password" value="${mysql.password}"></property>
+                <property name="driver" value="${mysql.driver}"></property>
+            </bean>
+        </property>
+
+        <property name="dir" value="src/test/resources/goose/migrations"></property>
+    </bean>
+
+    <bean id="datasource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${mysql.driver}" />
+        <property name="url" value="${mysql.url}" />
+        <property name="username" value="${mysql.user}" />
+        <property name="password" value="${mysql.password}" />
+    </bean>
+
+</beans>
