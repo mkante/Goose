@@ -30,13 +30,14 @@ class Supervisor
     public List<File> newFiles() {
 
         List<File> local = localFiles();
-        File lastCache = cacheFiles().last();
-        log.info("Last cache file: "+lastCache);
-        log.info("Local files: "+local);
-
-        if (lastCache == null) {
+        List<File> cacheFiles = cacheFiles();
+        if (cacheFiles.isEmpty()) {
             return local;
         }
+
+        File lastCache = cacheFiles.last();
+        log.info("Last cache file: "+lastCache);
+        log.info("Local files: "+local);
 
         List<File> newFiles =
                 local.findAll { file ->
@@ -88,14 +89,14 @@ class Supervisor
         List<File> lists = rootDir.listFiles();
 
         if (desc) {
-            lists = lists.sort{ a,b -> b.name.compareTo(a.name) }
+            //lists = lists.sort{ a,b -> b.name.compareTo(a.name) }
+            lists = lists.reverse();
         }
 
         return lists;
     }
 
     public List<File> cacheFiles(boolean desc = false) {
-
 
         String sql = sqlTemplate.allFiles(config.table) ;
 
@@ -106,7 +107,8 @@ class Supervisor
         }
 
         if (desc) {
-            files = files.sort{ a,b -> b.name.compareTo(a.name) }
+            //files = files.sort{ a,b -> b.name.compareTo(a.name) }
+            files = files.reverse();
         }
 
         return files;

@@ -2,9 +2,11 @@ package kante.goose.task
 
 import kante.goose.DB
 import kante.goose.ExtentionParameter
+import kante.goose.Supervisor
 import kante.goose.template.BaseTemplate
 import kante.goose.template.TemplateFactory
 import kante.goose.util.FileResolver
+import kante.goose.util.Migrator
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import static java.lang.System.out;
@@ -15,9 +17,12 @@ import static java.lang.System.out;
 public class Migrate
 {
 
+    public static enum Direction { UP, DOWN }
+
     protected ExtentionParameter config;
     protected Logger log;
     protected BaseTemplate sqlTmplt;
+    protected Supervisor supervisor;
 
     public Migrate(ExtentionParameter param) {
         log = LoggerFactory.getLogger(this.getClass());
@@ -25,6 +30,8 @@ public class Migrate
 
         sqlTmplt =
                 TemplateFactory.getTemplate(param.db.driver);
+
+        supervisor = new Supervisor(param);
     }
 
     public void init() {
@@ -64,18 +71,80 @@ public class Migrate
 
     public void run() {
 
-    }
-
-    public void reset() {
-
-    }
-
-    public void rollback() {
-
+        List<File> files = supervisor.newFiles();
+        applyFiles(files, Direction.UP);
     }
 
     public void next() {
 
+        List<File> files = supervisor.newFiles();
+        if (files.isEmpty()) {
+            return;
+        }
+
+        File file = files.first();
+        applyFiles([file], Direction.UP);
+    }
+
+    public void reset() {
+
+        List<File> files = supervisor.cacheFiles(true);
+        applyFiles(files, Direction.DOWN);
+    }
+
+    public void rollback() {
+
+        List<File> files = supervisor.cacheFiles(true);
+        if (files.isEmpty()) {
+            return;
+        }
+
+        File file = files.first();
+        applyFiles([file], Direction.DOWN);
+    }
+
+    protected void applyFiles(List<File> files, Direction direction) {
+
+        if (files.isEmpty()) {
+            log.info("No migration.");
+            return;
+        }
+
+        files.forEach { file ->
+
+            Migrator mgr = new Migrator(file);
+
+            switch (direction) {
+                case Direction.UP:
+                    mgr.up();
+                    dbInsert(file.name);
+                    break;
+                case Direction.DOWN:
+                    mgr.down();
+                    dbDelete(file.name);
+                    break;
+            }
+        }
+    }
+
+    protected void dbInsert(String fileName) {
+
+        String sql =
+                sqlTmplt.insert([
+                        'table': config.table,
+                        'file': fileName,
+                ]);
+        DB.SQL.execute(sql);
+    }
+
+    protected void dbDelete(String fileName) {
+
+        String sql =
+                sqlTmplt.delete([
+                        'table': config.table,
+                        'file': fileName,
+                ]);
+        DB.SQL.execute(sql);
     }
 
 }

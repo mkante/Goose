@@ -5,6 +5,7 @@ package kante.goose.template
  */
 class MysqlTemplate implements BaseTemplate
 {
+    @Override
     public String init(String table) {
 
         String sql = """
@@ -17,7 +18,20 @@ class MysqlTemplate implements BaseTemplate
         return sql;
     }
 
+    @Override
     public String allFiles(String table) {
         return "SELECT * FROM "+table+" ORDER BY created_at ASC";
+    }
+
+    @Override
+    public String insert(Map props) {
+
+        return "INSERT INTO "+props.table+""" SET file = '${props.file}'""";
+    }
+
+    @Override
+    public String delete(Map props) {
+
+        return "DELETE FROM "+props.table+""" WHERE file = '${props.file}'""";
     }
 }

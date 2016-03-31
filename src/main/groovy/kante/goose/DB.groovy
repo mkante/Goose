@@ -49,4 +49,10 @@ public class DB
         }
         return bool;
     }
+
+    public static boolean isTableEmpty(String table) {
+
+        GroovyRowResult row = DB.SQL.firstRow("SELECT * FROM "+table);
+        return (row == null)? true : false;
+    }
 }

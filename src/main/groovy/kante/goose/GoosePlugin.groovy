@@ -18,7 +18,7 @@ public class GoosePlugin implements Plugin<Project>
             DB.init(project.goose);
             Migrate mgrTask = new Migrate(project.goose);
 
-            switch(params) {
+            switch(action) {
                 case 'init':
                     mgrTask.init();
                     break;
