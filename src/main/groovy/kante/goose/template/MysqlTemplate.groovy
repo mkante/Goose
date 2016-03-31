@@ -16,4 +16,8 @@ class MysqlTemplate implements BaseTemplate
         """;
         return sql;
     }
+
+    public String allFiles(String table) {
+        return "SELECT * FROM "+table+" ORDER BY created_at ASC";
+    }
 }

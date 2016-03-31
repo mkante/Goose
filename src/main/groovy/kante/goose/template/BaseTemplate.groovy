@@ -7,4 +7,5 @@ interface BaseTemplate
 {
 
     public String init(String table);
+    public String allFiles(String table);
 }

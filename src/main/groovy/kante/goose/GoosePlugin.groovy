@@ -22,24 +22,29 @@ public class GoosePlugin implements Plugin<Project>
                 case 'init':
                     mgrTask.init();
                     break;
+
                 case 'make':
                     String name = "";
                     File dir = mgrTask.createFile(prefix);
                     println("migration: "+dir.path+" created");
                     break;
-                
+
                 case 'migrate':
                     mgrTask.run();
                     break;
+
                 case 'migrate:reset':
                     mgrTask.reset();
                     break;
+
                 case 'migrate:next':
                     mgrTask.next();
                     break;
+
                 case 'migrate:rollback':
                     mgrTask.rollback();
                     break;
+
                 default: this.help();
             }
         }
