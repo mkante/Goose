@@ -44,11 +44,13 @@ public class Migrate
 
         log.debug("Creating migrations table "+config.table);
         if (DB.tableExists(config.table)) {
-            log.trace("Table already created");
+            log.info("Table already created");
             return;
         }
         String sql = sqlTmplt.init(config.table);
         DB.SQL.execute(sql);
+
+        log.info("Initialized");
     }
 
     public File createFile(String name) {
@@ -118,10 +120,13 @@ public class Migrate
                 case Direction.UP:
                     mgr.up();
                     dbInsert(file.name);
+                    log.info("Added: "+file.name);
                     break;
+
                 case Direction.DOWN:
                     mgr.down();
                     dbDelete(file.name);
+                    log.info("Rollback: "+file.name);
                     break;
             }
         }

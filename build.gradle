@@ -1,8 +1,11 @@
 apply plugin: 'groovy'
 
 sourceCompatibility = 1.5
-version = '1.0'
+version = '1.0-SNAPSHOT'
 group = 'kante.goose'
+archivesBaseName = 'kante.goose-goose'
+
+
 
 repositories {
     mavenCentral()
@@ -30,5 +33,25 @@ dependencies {
     testCompile 'mysql:mysql-connector-java:5.1.38'
     testCompile 'org.xerial:sqlite-jdbc:3.8.11.2'
     testCompile 'org.springframework:spring-jdbc:4.2.4.RELEASE'
+}
 
+
+task "hello" {
+    logger.info "Build: "+buildDir
+}
+
+jar.doLast {
+
+    File libDir = new File(buildDir, "libs");
+    logger.info "Copying dependenices to: "+libDir.path;
+    //FileCollection deps = sourceSets.main.runtimeClasspath ;
+    FileCollection deps = configurations.compile;
+
+    deps.each { dep ->
+        copy{
+            include '**/*.jar'
+            from dep
+            into libDir
+        }
+    }
 }
