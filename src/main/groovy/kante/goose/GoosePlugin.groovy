@@ -20,35 +20,43 @@ public class GoosePlugin implements Plugin<Project>
     @Override
     void apply(Project project) {
 
-        project.extentions.create('goose', ExtentionParameter.class);
+        def pluginGroup = "Goose migration"
 
-        project.task('goose') {
+        project.extensions.create('goose', ExtentionParameter.class);
+
+        project.task('goose',
+                group: pluginGroup) << {
             this.help();
         }
 
-        project.task('goose-init') {
+        project.task('goose-init',
+                group: pluginGroup) << {
             newMigrate(project).init();
         }
 
-        project.task('goose-make') {
+        project.task('goose-make',
+                group: pluginGroup) << {
             String name = properties.name;
             File dir = newMigrate(project).createFile(names);
             log.info("migration: "+dir.path+" created");
         }
 
-        project.task('goose-migrate') {
+        project.task('goose-migrate',
+                group: pluginGroup) << {
             newMigrate(project).run();
         }
 
-        project.task('goose-next') {
+        project.task('goose-next',
+                group: pluginGroup) << {
             newMigrate(project).next();
         }
 
-        project.task('goose-reset') {
+        project.task('goose-reset',
+                group: pluginGroup) << {
             newMigrate(project).reset();
         }
 
-        project.task('goose-rollback') {
+        project.task('goose-rollback', group: pluginGroup) << {
             newMigrate(project).rollback();
         }
 
@@ -62,14 +70,12 @@ public class GoosePlugin implements Plugin<Project>
 
     protected void help() {
         String msg = """
-        goose
-            init
-            make
-            migrate
-            migrate:reset
-            migrate:next
-            migrate:rollback
-            help
+        goose-init
+        goose-make
+        goose-migrate
+        goose-reset
+        goose-next
+        goose-rollback
         """;
 
         out.println(msg);
