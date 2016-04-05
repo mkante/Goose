@@ -124,7 +124,7 @@ class SupervisorTest
         File f6 = new File(rootDir, "2016_11_16_00004_DDL");
 
         List<File> files = sp.newFiles();
-        println("New files: "+files);
+        println("New files: "+files)
         assertTrue(files.size() == 3)
 
         assertEquals(files[0].path, f4.path);

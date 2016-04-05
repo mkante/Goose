@@ -73,13 +73,13 @@ DROP TABLE users;
 
 Running Migrations
 ----
-To run all outstanding migrations for your application, use the __goose-run__ task. 
+To run all outstanding migrations for your application, use the __goose-migrate__ task. 
 
 ```
-gradle goose-run -i
+gradle goose-migrate -i
 ```
 
-The **goose-nex**t task will run the next migration of your application:
+The **goose-next** task will run the next migration of your application:
 
 ```
 gradle goose-next -i
@@ -130,7 +130,7 @@ goose {
 #### goose-make
 Create a new migration.
 
-#### goose-run
+#### goose-migrate
 
 To run all new migrations
 

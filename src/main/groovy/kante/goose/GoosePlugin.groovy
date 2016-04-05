@@ -31,11 +31,13 @@ public class GoosePlugin implements Plugin<Project>
 
         project.task('goose-init',
                 group: pluginGroup) << {
+
             newMigrate(project).init();
         }
 
         project.task('goose-make',
                 group: pluginGroup) << {
+
             String name = properties.name;
             File dir = newMigrate(project).createFile(names);
             log.info("migration: "+dir.path+" created");
@@ -43,16 +45,19 @@ public class GoosePlugin implements Plugin<Project>
 
         project.task('goose-migrate',
                 group: pluginGroup) << {
+
             newMigrate(project).run();
         }
 
         project.task('goose-next',
                 group: pluginGroup) << {
+
             newMigrate(project).next();
         }
 
         project.task('goose-reset',
                 group: pluginGroup) << {
+
             newMigrate(project).reset();
         }
 
