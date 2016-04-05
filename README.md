@@ -107,7 +107,7 @@ Goose plugin will add following tasks to your project.
 goose
 goose-init
 goose-make
-goose-run
+goose-migrate
 goose-next
 goose-rollback
 goose-reset
