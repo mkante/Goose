@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 
 def currentVers = '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.6
 version = currentVers
 group = 'kante.goose'
 archivesBaseName = 'goose'
