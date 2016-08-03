@@ -20,16 +20,20 @@ Make sure `kante.goose:goose:1.0-SNAPSHOT` is in your builscript classpath
 
 Configuration
 ----
-Setup your database credentials
+Goose database credentials are read from an external configuration file `goose.properties`
+
+```
+db.url = jdbc:mysql://localhost/my_db
+db.user = test
+db.password = tets
+db.driver = com.mysql.jdbc.Driver
+```
+
+The default location of `goose.properties` is the current directory. You can change that with extensions property `goose.configDIr`
 
 ```
 goose {
-	db {
-		url = 'jdbc:mysql://localhost/my_db'
-		user = 'test'
-		password = 'tets'
-		driver = 'com.mysql.jdbc.Driver'
-	}
+	configDir = 'custom/directory'
 }
 ```
 
@@ -123,7 +127,7 @@ You cant change those settings with:
 goose {
 	...
 	dir = 'some/path/relatif/to/the/project'
-	table = 'custom_migratsins'
+	table = 'custom_migrations'
 }
 ```
 
