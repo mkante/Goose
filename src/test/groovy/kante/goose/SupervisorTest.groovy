@@ -21,7 +21,7 @@ class SupervisorTest
 {
 
     @Autowired
-    ExtentionParameter extParams
+    Config extParams
 
     @Test
     public void localFiles() {

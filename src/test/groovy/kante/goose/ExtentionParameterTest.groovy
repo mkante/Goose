@@ -2,8 +2,7 @@ package kante.goose
 
 import org.junit.Test
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull
 import static java.lang.System.out;
 import static org.junit.Assert.assertEquals;
 
@@ -17,7 +16,7 @@ class ExtentionParameterTest
     public void testOne() {
 
         String dir = "src/main/resources/goose/migrations";
-        ExtentionParameter prm = new ExtentionParameter();
+        Config prm = new Config();
         assertNull(prm.db.driver);
         assertNull(prm.db.url);
         assertNull(prm.db.user);

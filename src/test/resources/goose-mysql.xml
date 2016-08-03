@@ -28,9 +28,9 @@
         </property>
     </bean>
 
-    <bean class="kante.goose.ExtentionParameter" scope="prototype">
+    <bean class="kante.goose.Config" scope="prototype">
         <property name="db">
-            <bean class="kante.goose.ExtentionParameter.DBParams">
+            <bean class="kante.goose.Config.DBParams">
                 <property name="url" value="${mysql.url}"></property>
                 <property name="user" value="${mysql.user}"></property>
                 <property name="password" value="${mysql.password}"></property>

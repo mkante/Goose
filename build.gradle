@@ -50,10 +50,6 @@ dependencies {
 }
 
 
-task ("hello", group:"Hi") {
-    logger.info "Build: "+buildDir
-}
-
 jar.doLast {
 
     File libDir = new File(buildDir, "libs");

@@ -1,5 +1,6 @@
 package kante.goose
 
+import kante.goose.error.ConfigError
 import kante.goose.task.Migrate
 import org.gradle.api.Project;
 import org.gradle.api.Plugin
@@ -22,7 +23,7 @@ public class GoosePlugin implements Plugin<Project>
 
         def pluginGroup = "Goose migration"
 
-        project.extensions.create('goose', ExtentionParameter.class);
+        project.extensions.create('goose', ExternalParams.class);
 
         project.task('goose',
                 group: pluginGroup) << {
@@ -39,7 +40,7 @@ public class GoosePlugin implements Plugin<Project>
                 group: pluginGroup) << {
 
             String name = properties.name;
-            File dir = newMigrate(project).createFile(names);
+            File dir = newMigrate(project).createFile(name);
             log.info("migration: "+dir.path+" created");
         }
 
@@ -69,8 +70,29 @@ public class GoosePlugin implements Plugin<Project>
 
     protected Migrate newMigrate(Project project) {
 
-        DB.init(project.goose);
-        return new Migrate(project.goose);
+        Config conf = new Config();
+        conf.dir = project.goose.dir;
+        conf.table = project.goose.table;
+
+        File confFile = new File(project.goose.configDir+"/goose.properties");
+        if (!confFile.isFile()) {
+            throw new ConfigError("can't locate config file: "+confFile);
+        }
+
+        log.info "Found config file: "+confFile;
+
+        Properties props = new Properties();
+        props.load (new FileInputStream(confFile));
+
+        log.info "Loaded properties: "+props;
+
+        conf.db.driver = props['db.driver'];
+        conf.db.url = props['db.url'];
+        conf.db.user = props['db.user'];
+        conf.db.password = props['db.password'];
+
+        DB.init(conf);
+        return new Migrate(conf);
     }
 
     protected void help() {

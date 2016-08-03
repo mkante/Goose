@@ -15,11 +15,11 @@ class Supervisor
 {
 
     protected Logger log ;
-    protected ExtentionParameter config;
+    protected Config config;
     protected BaseTemplate sqlTemplate;
     File rootDir;
 
-    public Supervisor(ExtentionParameter config) {
+    public Supervisor(Config config) {
         log = LoggerFactory.getLogger(this.getClass());
         this.config = config;
 

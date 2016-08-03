@@ -3,7 +3,7 @@ package kante.goose
 /**
  * Created by moh on 3/30/16.
  */
-public class ExtentionParameter
+public class Config
 {
 
     public static class DBParams
@@ -18,7 +18,7 @@ public class ExtentionParameter
     String table ='goose_migrations' ;
     DBParams db ;
 
-    public ExtentionParameter() {
+    public Config() {
         db = new DBParams();
     }
 

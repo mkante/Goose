@@ -7,6 +7,7 @@
     </appender>
 
     <!-- logger name="o." level="NONW"></logger -->
+    <logger name="kante.goose" level="all"></logger>
 
     <root level="info">
         <appender-ref ref="STDOUT" />

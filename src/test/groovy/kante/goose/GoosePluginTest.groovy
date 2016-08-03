@@ -1,20 +1,18 @@
 package kante.goose
 
+import kante.goose.error.ConfigError
 import kante.goose.error.GoosePluginError
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.tasks.TaskState
 import org.gradle.testfixtures.ProjectBuilder;
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
-import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -28,11 +26,13 @@ class GoosePluginTest
     Project project;
 
     @Autowired
-    ExtentionParameter extParams;
+    Config conf;
 
     public GoosePluginTest() {
         project = ProjectBuilder.builder().build();
         project.apply plugin:"kante.goose.migration";
+
+        project.goose.configDir = "src/test/resources";
     }
 
     @Test
@@ -58,6 +58,7 @@ class GoosePluginTest
     @Test
     public void init1() {
 
+        project.goose.configDir = null;
         Task initTask = project.tasks['goose-init'];
 
         try {
@@ -66,8 +67,8 @@ class GoosePluginTest
             assertTrue(false);
         }
         catch (Throwable e) {
-            //e.printStackTrace();
-            assertTrue(e.cause instanceof GoosePluginError);
+            e.printStackTrace();
+            assertTrue(e.cause instanceof ConfigError);
         }
     }
 
@@ -87,14 +88,13 @@ class GoosePluginTest
         initTask = project.tasks['goose-init'];
 
         // set url
-        extParams.dir = f1.path;
-        extParams.table = t1;
+        conf.dir = f1.path;
+        conf.table = t1;
 
-        project.goose.db = extParams.db ;
-        project.goose.table = extParams.table ;
-        project.goose.dir = extParams.dir;
+        project.goose.table = conf.table ;
+        project.goose.dir = conf.dir;
 
-        println "URL= "+extParams.db;
+        println "URL= "+conf.db;
         println "Extention "+project.goose;
         println "State= "+initTask.state ;
 

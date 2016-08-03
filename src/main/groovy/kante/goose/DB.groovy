@@ -22,7 +22,7 @@ public class DB
         log = LoggerFactory.getLogger(DB.class);
     }
 
-    public static void init(ExtentionParameter params) {
+    public static void init(Config params) {
 
         init([
                 'url': params.db.url,

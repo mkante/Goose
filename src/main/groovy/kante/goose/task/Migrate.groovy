@@ -1,7 +1,7 @@
 package kante.goose.task
 
 import kante.goose.DB
-import kante.goose.ExtentionParameter
+import kante.goose.Config
 import kante.goose.Supervisor
 import kante.goose.template.BaseTemplate
 import kante.goose.template.TemplateFactory
@@ -9,7 +9,6 @@ import kante.goose.util.FileResolver
 import kante.goose.util.Migrator
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import static java.lang.System.out;
 
 /**
  * Created by moh on 3/30/16.
@@ -19,12 +18,12 @@ public class Migrate
 
     public static enum Direction { UP, DOWN }
 
-    protected ExtentionParameter config;
+    protected Config config;
     protected Logger log;
     protected BaseTemplate sqlTmplt;
     protected Supervisor supervisor;
 
-    public Migrate(ExtentionParameter param) {
+    public Migrate(Config param) {
         log = LoggerFactory.getLogger(this.getClass());
         config = param;
 
