@@ -25,7 +25,7 @@ Goose database credentials are read from an external configuration file `goose.p
 ```
 db.url = jdbc:mysql://localhost/my_db
 db.user = test
-db.password = tets
+db.password = test
 db.driver = com.mysql.jdbc.Driver
 ```
 

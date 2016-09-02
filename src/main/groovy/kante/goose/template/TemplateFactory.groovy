@@ -12,6 +12,7 @@ abstract class TemplateFactory
         BaseTemplate templt = null;
         switch (driver) {
             case 'com.mysql.jdbc.Driver':
+            case 'com.mysql.cj.jdbc.Driver':
                 templt = new MysqlTemplate();
                 break;
             default:
