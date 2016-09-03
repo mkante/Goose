@@ -39,15 +39,17 @@ public class GoosePlugin implements Plugin<Project>
         project.task('goose-make',
                 group: pluginGroup) << {
 
-            String name = properties.name;
+            String name = System.properties.name;
             File dir = newMigrate(project).createFile(name);
-            log.info("migration: "+dir.path+" created");
+            project.logger.println("migration: "+dir.path+" created");
         }
 
         project.task('goose-migrate',
                 group: pluginGroup) << {
 
             newMigrate(project).run();
+            project.logger.println("Migration done");
+
         }
 
         project.task('goose-next',

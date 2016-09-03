@@ -43,7 +43,7 @@ public class Migrate
 
         log.debug("Creating migrations table "+config.table);
         if (DB.tableExists(config.table)) {
-            log.info("Table already created");
+            log.println("Table already created");
             return;
         }
         String sql = sqlTmplt.init(config.table);
@@ -80,6 +80,7 @@ public class Migrate
 
         List<File> files = supervisor.newFiles();
         if (files.isEmpty()) {
+            log.println("No migration.");
             return;
         }
 
@@ -97,6 +98,7 @@ public class Migrate
 
         List<File> files = supervisor.cacheFiles(true);
         if (files.isEmpty()) {
+            log.println("No migration.");
             return;
         }
 
@@ -107,7 +109,7 @@ public class Migrate
     protected void applyFiles(List<File> files, Direction direction) {
 
         if (files.isEmpty()) {
-            log.info("No migration.");
+            log.println("No migration.");
             return;
         }
 
@@ -119,13 +121,13 @@ public class Migrate
                 case Direction.UP:
                     mgr.up();
                     dbInsert(file.name);
-                    log.info("Added: "+file.name);
+                    log.println("Added: "+file.name);
                     break;
 
                 case Direction.DOWN:
                     mgr.down();
                     dbDelete(file.name);
-                    log.info("Rollback: "+file.name);
+                    log.println("Rollback: "+file.name);
                     break;
             }
         }
