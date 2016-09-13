@@ -1,13 +1,18 @@
+plugins {
+    id "com.gradle.plugin-publish" version "0.9.5"
+}
+
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
 def currentVers = '1.0-SNAPSHOT'
+def descr = 'A database migration plugin for Gradle. This was inspired from Laravel artisan migration tool.'
 
 sourceCompatibility = 1.6
 version = currentVers
 group = 'kante.goose'
 archivesBaseName = 'goose'
-
+description = descr
 
 publishing {
     publications {
@@ -20,6 +25,22 @@ publishing {
     }
 }
 
+pluginBundle {
+    website = 'https://github.com/mkante/Goose'
+    vcsUrl = 'https://github.com/mkante/Goose'
+    description = descr
+    tags = [
+            'migration', 'database',
+            'mkante', 'mysql'
+    ]
+
+    plugins {
+        goosePlugin {
+            id = 'kante.goose.migration'
+            displayName = 'Goose (Database migration)'
+        }
+    }
+}
 
 repositories {
     mavenCentral()
@@ -37,7 +58,7 @@ test {
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.20'
-    //compile 'org.codehaus.groovy:groovy-all:2.4.6'
+    compile localGroovy() //not needed for Java plugins
     compile 'ch.qos.logback:logback-classic:1.1.6'
     compile gradleApi()
 
@@ -48,7 +69,6 @@ dependencies {
     testCompile 'org.xerial:sqlite-jdbc:3.8.11.2'
     testCompile 'org.springframework:spring-jdbc:4.2.4.RELEASE'
 }
-
 
 jar.doLast {
 
