@@ -5,7 +5,7 @@ plugins {
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
-def currentVers = '1.0-SNAPSHOT'
+def currentVers = '1.0'
 def descr = 'A database migration plugin for Gradle. This was inspired from Laravel artisan migration tool.'
 
 sourceCompatibility = 1.6
