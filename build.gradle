@@ -5,11 +5,11 @@ plugins {
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
-def currentVers = '1.0'
 def descr = 'A database migration plugin for Gradle. This was inspired from Laravel artisan migration tool.'
 
+def currentVers = version
+
 sourceCompatibility = 1.6
-version = currentVers
 group = 'kante.goose'
 archivesBaseName = 'goose'
 description = descr
@@ -43,7 +43,9 @@ pluginBundle {
 }
 
 repositories {
-    mavenCentral()
+    maven {
+        url 'http://nexus.hm:8081/repository/maven-public/'
+    }
 }
 
 test {
