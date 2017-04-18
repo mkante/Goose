@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:goose-mysql.xml")
-@ActiveProfiles("mysql")
 class MysqlTemplateTest
 {
     Logger log = LoggerFactory.getLogger(MysqlTemplateTest.class);

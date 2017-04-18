@@ -20,10 +20,8 @@
                   value="kante.goose.DB.init"/>
         <property name="arguments">
             <map>
-                <entry key="url" value="${mysql.url}" />
-                <entry key="user" value="${mysql.user}" />
-                <entry key="password" value="${mysql.password}" />
-                <entry key="driver" value="${mysql.driver}" />
+                <entry key="url" value="${sqlite.url}" />
+                <entry key="driver" value="${sqlite.driver}" />
             </map>
         </property>
     </bean>
@@ -31,22 +29,18 @@
     <bean class="kante.goose.Config" scope="prototype">
         <property name="db">
             <bean class="kante.goose.Config.DBParams">
-                <property name="url" value="${mysql.url}"></property>
-                <property name="user" value="${mysql.user}"></property>
-                <property name="password" value="${mysql.password}"></property>
-                <property name="driver" value="${mysql.driver}"></property>
+                <property name="url" value="${sqlite.url}"></property>
+                <property name="driver" value="${sqlite.driver}"></property>
             </bean>
         </property>
 
-        <property name="dir" value="src/test/resources/goose/migrations"></property>
+        <property name="dir" value="src/test/resources/goose/mysql"></property>
     </bean>
 
     <bean id="datasource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${mysql.driver}" />
-        <property name="url" value="${mysql.url}" />
-        <property name="username" value="${mysql.user}" />
-        <property name="password" value="${mysql.password}" />
+        <property name="driverClassName" value="${sqlite.driver}" />
+        <property name="url" value="${sqlite.url}" />
     </bean>
 
 </beans>

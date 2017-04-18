@@ -10,13 +10,18 @@ abstract class TemplateFactory
     public static BaseTemplate getTemplate(String driver) {
 
         BaseTemplate templt = null;
-        switch (driver) {
-            case 'com.mysql.jdbc.Driver':
-            case 'com.mysql.cj.jdbc.Driver':
-                templt = new MysqlTemplate();
-                break;
-            default:
-                throw new SqlTemplateError("No template for Driver="+driver);
+
+        if ( driver ==~ /.*mysql.*/) {
+            templt = new MysqlTemplate();
+        }
+        else if ( driver ==~ /.*sqlite.*/) {
+            templt = new SqLiteTemplate();
+        }
+        else if ( driver ==~ /.*postgresql.*/) {
+            templt = new PostgresTemplate();
+        }
+        else {
+            throw new SqlTemplateError("No template for Driver="+driver);
         }
 
         return templt;

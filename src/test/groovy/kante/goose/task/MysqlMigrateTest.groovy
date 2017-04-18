@@ -19,7 +19,6 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:goose-mysql.xml")
-@ActiveProfiles("mysql")
 class MysqlMigrateTest
 {
     @Autowired

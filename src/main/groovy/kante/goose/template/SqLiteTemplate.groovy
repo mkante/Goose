@@ -3,14 +3,14 @@ package kante.goose.template
 /**
  * Created by moh on 3/30/16.
  */
-class MysqlTemplate implements BaseTemplate
+class SqLiteTemplate implements BaseTemplate
 {
     @Override
     public String init(String table) {
 
         String sql = """
         CREATE TABLE ${table} (
-            id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+            id INT PRIMARY KEY AUTOINCREMENT NOT NULL,
             file TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )

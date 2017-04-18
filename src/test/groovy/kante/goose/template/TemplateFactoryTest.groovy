@@ -11,7 +11,7 @@ class TemplateFactoryTest
 {
 
     @Test
-    public void testType() {
+    public void testMysql() {
 
         String d1 = "com.mysql.jdbc.Driver";
         String d2 = "nothing";
@@ -27,5 +27,21 @@ class TemplateFactoryTest
         catch (SqlTemplateError e){
             assertTrue(true);
         }
+    }
+
+    @Test
+    public void testSlite() {
+
+        String d1 = "org.sqlite.JDBC";
+        BaseTemplate t = TemplateFactory.getTemplate(d1);
+        assertTrue(t instanceof SqLiteTemplate);
+    }
+
+    @Test
+    public void testPostgres() {
+
+        String d1 = "org.postgresql.Driver";
+        BaseTemplate t = TemplateFactory.getTemplate(d1);
+        assertTrue(t instanceof PostgresTemplate);
     }
 }

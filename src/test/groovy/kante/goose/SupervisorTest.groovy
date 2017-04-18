@@ -16,7 +16,6 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:goose-mysql.xml")
-@ActiveProfiles("mysql")
 class SupervisorTest
 {
 
