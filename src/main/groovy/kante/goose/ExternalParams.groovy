@@ -5,7 +5,7 @@ package kante.goose
  */
 class ExternalParams
 {
-
+    String configFile = null;
     String configDir = '.';
     String dir = 'src/main/resources/goose/migrations';
     String table ='goose_migrations' ;

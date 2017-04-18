@@ -1,0 +1,1 @@
+TRUNCATE mysql_migrations;

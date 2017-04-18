@@ -28,14 +28,20 @@ db.user = test
 db.password = test
 db.driver = com.mysql.jdbc.Driver
 ```
-
-The default location of `goose.properties` is the current directory. You can change that with extensions property `goose.configDIr`
+The default location of `goose.properties` is the current directory. You can change that with extensions property `goose.configDir`.
 
 ```
 goose {
 	configDir = 'custom/directory'
 }
 ```
+To rename the configuration use `goose.configFile`. It must be a valid properties file
+
+```
+goose {
+	configFile = 'goose_prod.properties'
+}
+``` 
 
 Don't forget to add the correct JDBC connector to classpath. Checkout [Maven repoository](http://mvnrepository.com)
 

@@ -10,7 +10,7 @@ class MysqlTemplate implements BaseTemplate
 
         String sql = """
         CREATE TABLE ${table} (
-            id INT,
+            id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
             file TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
@@ -20,7 +20,7 @@ class MysqlTemplate implements BaseTemplate
 
     @Override
     public String allFiles(String table) {
-        return "SELECT * FROM "+table+" ORDER BY created_at ASC";
+        return "SELECT * FROM "+table+" ORDER BY id ASC";
     }
 
     @Override

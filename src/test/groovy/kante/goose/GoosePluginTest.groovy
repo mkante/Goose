@@ -4,7 +4,8 @@ import kante.goose.error.ConfigError
 import kante.goose.error.GoosePluginError
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.testfixtures.ProjectBuilder;
+import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Before;
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,7 +29,8 @@ class GoosePluginTest
     @Autowired
     Config conf;
 
-    public GoosePluginTest() {
+    @Before
+    public void before() {
         project = ProjectBuilder.builder().build();
         project.apply plugin:"kante.goose.migration";
 
@@ -77,15 +79,16 @@ class GoosePluginTest
     public void init2() {
 
         GoosePluginSeed.data3();
+        project.goose.configDir = "src/test/resources";
+        project.goose.configFile = "mysql_goose.properties";
 
         File f1 = new File("/tmp/goose_testred");
         assertTrue(!f1.isDirectory());
 
-        String t1 = "goose_testred";
+        String t1 = "goose_tested";
         assertTrue(!DB.tableExists(t1))
 
-        Task initTask = null;
-        initTask = project.tasks['goose-init'];
+        Task initTask = project.tasks['goose-init'];
 
         // set url
         conf.dir = f1.path;

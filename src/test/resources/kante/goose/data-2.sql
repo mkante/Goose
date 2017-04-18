@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS goose_testred;
+DROP TABLE IF EXISTS goose_tested;

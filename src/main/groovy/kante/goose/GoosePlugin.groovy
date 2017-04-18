@@ -76,7 +76,10 @@ public class GoosePlugin implements Plugin<Project>
         conf.dir = project.goose.dir;
         conf.table = project.goose.table;
 
-        File confFile = new File(project.goose.configDir+"/goose.properties");
+        String cfgFile = project.goose.configFile;
+        cfgFile = (cfgFile == null)? "goose.properties" : cfgFile;
+
+        File confFile = new File(project.goose.configDir+"/"+cfgFile);
         if (!confFile.isFile()) {
             throw new ConfigError("can't locate config file: "+confFile);
         }
