@@ -91,7 +91,6 @@ class GoosePluginTest
 
         GoosePluginSeed.data3();
         project.goose.configDir = "src/test/resources";
-        project.goose.configFile = "mysql_goose.properties";
 
         File f1 = new File("/tmp/goose_testred");
         assertTrue(!f1.isDirectory());
