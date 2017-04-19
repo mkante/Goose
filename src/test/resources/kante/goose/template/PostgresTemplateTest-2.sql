@@ -1,0 +1,1 @@
+TRUNCATE goose_migrations;

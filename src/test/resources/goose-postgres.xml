@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <context:property-placeholder location="goose-test.properties"></context:property-placeholder>
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod"
+                  value="kante.goose.DB.init"/>
+        <property name="arguments">
+            <map>
+                <entry key="url" value="${postgres.url}" />
+                <entry key="user" value="${postgres.user}" />
+                <entry key="password" value="${postgres.password}" />
+                <entry key="driver" value="${postgres.driver}" />
+            </map>
+        </property>
+    </bean>
+
+    <bean class="kante.goose.Config" scope="prototype">
+        <property name="db">
+            <bean class="kante.goose.Config.DBParams">
+                <property name="url" value="${postgres.url}"></property>
+                <property name="user" value="${postgres.user}" />
+                <property name="password" value="${postgres.password}" />
+                <property name="driver" value="${postgres.driver}"></property>
+            </bean>
+        </property>
+
+        <property name="dir" value="src/test/resources/goose/mysql"></property>
+    </bean>
+
+    <bean id="datasource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${postgres.driver}" />
+        <property name="url" value="${postgres.url}" />
+        <property name="username" value="${postgres.user}" />
+        <property name="password" value="${postgres.password}" />
+    </bean>
+
+</beans>

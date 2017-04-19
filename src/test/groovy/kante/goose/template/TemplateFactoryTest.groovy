@@ -34,7 +34,7 @@ class TemplateFactoryTest
 
         String d1 = "org.sqlite.JDBC";
         BaseTemplate t = TemplateFactory.getTemplate(d1);
-        assertTrue(t instanceof SqLiteTemplate);
+        assertTrue(t instanceof SqliteTemplate);
     }
 
     @Test

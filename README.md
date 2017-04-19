@@ -7,7 +7,10 @@ A database migration plugin for Gradle. This was inspired from Laravel artisan m
 >- JDK 1.6+
 >- Gralde 2.3+
 
-> ONLY MYSQL IS SUPPORTED FOR NOW
+##### Supported databases
+- Mysql
+- Sqlite
+- Postgres
 
 Install
 ----

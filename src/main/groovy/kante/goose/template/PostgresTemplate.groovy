@@ -20,13 +20,13 @@ class PostgresTemplate implements BaseTemplate
 
     @Override
     public String allFiles(String table) {
-        return "SELECT * FROM "+table+" ORDER BY id ASC";
+        return "SELECT * FROM "+table+" ORDER BY id, file ASC";
     }
 
     @Override
     public String insert(Map props) {
 
-        return "INSERT INTO "+props.table+""" SET file = '${props.file}'""";
+        return "INSERT INTO "+props.table+""" (file) VALUES ('${props.file}')""";
     }
 
     @Override

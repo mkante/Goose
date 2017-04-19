@@ -40,8 +40,8 @@ public class DB
         String ms4 = "Goose 'db.driver' is required" ;
 
         Assert.notNull(params.url, new GoosePluginError(ms1))
-        Assert.notNull(params.user, new GoosePluginError(ms2))
-        Assert.notNull(params.password, new GoosePluginError(ms3))
+        //Assert.notNull(params.user, new GoosePluginError(ms2))
+        //Assert.notNull(params.password, new GoosePluginError(ms3))
         Assert.notNull(params.driver, new GoosePluginError(ms4))
 
         log.debug("Initializationg DB params= "+params);

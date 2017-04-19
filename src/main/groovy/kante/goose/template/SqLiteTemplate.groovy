@@ -3,14 +3,14 @@ package kante.goose.template
 /**
  * Created by moh on 3/30/16.
  */
-class SqLiteTemplate implements BaseTemplate
+class SqliteTemplate implements BaseTemplate
 {
     @Override
     public String init(String table) {
 
         String sql = """
         CREATE TABLE ${table} (
-            id INT PRIMARY KEY AUTOINCREMENT NOT NULL,
+            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             file TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
@@ -26,7 +26,7 @@ class SqLiteTemplate implements BaseTemplate
     @Override
     public String insert(Map props) {
 
-        return "INSERT INTO "+props.table+""" SET file = '${props.file}'""";
+        return "INSERT INTO "+props.table+""" (file) VALUES ('${props.file}')""";
     }
 
     @Override

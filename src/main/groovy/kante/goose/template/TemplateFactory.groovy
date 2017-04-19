@@ -15,7 +15,7 @@ abstract class TemplateFactory
             templt = new MysqlTemplate();
         }
         else if ( driver ==~ /.*sqlite.*/) {
-            templt = new SqLiteTemplate();
+            templt = new SqliteTemplate();
         }
         else if ( driver ==~ /.*postgresql.*/) {
             templt = new PostgresTemplate();
