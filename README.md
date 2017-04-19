@@ -31,19 +31,19 @@ db.user = test
 db.password = test
 db.driver = com.mysql.jdbc.Driver
 ```
-The default location of `goose.properties` is the current directory. You can change that with extensions property `goose.configDir`.
+The default location of `goose.properties` is your current directory. You can change that with extensions property `goose.configDir`.
 
 ```
 goose {
 	configDir = 'custom/directory'
 }
 ```
-To rename the configuration use `goose.configFile`. It must be a valid properties file
+Goose also supports profiles, a profile provides a way to load specific configuration for your environment. You define a profile by passing the system property `-Dprofile=prod` then goose will search for `goose-prod.properties`. If your profile doesn't exist, goose will NOT fallback to `goose.properties`.
+
+Here is the general format of a profile
 
 ```
-goose {
-	configFile = 'goose_prod.properties'
-}
+goose-{profile}.properties
 ``` 
 
 Don't forget to add the correct JDBC connector to classpath. Checkout [Maven repoository](http://mvnrepository.com)

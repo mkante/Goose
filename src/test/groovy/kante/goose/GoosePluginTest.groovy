@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
+import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -71,6 +72,17 @@ class GoosePluginTest
             e.printStackTrace();
             assertTrue(e.cause instanceof ConfigError);
         }
+    }
+
+    @Test
+    public void getConfiguration() {
+        GoosePlugin plg = new GoosePlugin();
+        System.properties["profile"] =  "  ";
+        assertEquals("goose.properties", plg.configFile);
+        System.properties.profile = "prod";
+        assertEquals("goose-prod.properties", plg.configFile);
+        System.properties.profile = "dev   ";
+        assertEquals("goose-dev.properties", plg.configFile);
     }
 
     @Test

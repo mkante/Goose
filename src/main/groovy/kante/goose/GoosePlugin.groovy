@@ -76,9 +76,8 @@ public class GoosePlugin implements Plugin<Project>
         conf.dir = project.goose.dir;
         conf.table = project.goose.table;
 
-        String cfgFile = project.goose.configFile;
-        cfgFile = (cfgFile == null)? "goose.properties" : cfgFile;
-
+        String cfgFile = getConfigFile();
+        log.info("Configuration file name: " + cfgFile);
         File confFile = new File(project.goose.configDir+"/"+cfgFile);
         if (!confFile.isFile()) {
             throw new ConfigError("can't locate config file: "+confFile);
@@ -98,6 +97,17 @@ public class GoosePlugin implements Plugin<Project>
 
         DB.init(conf);
         return new Migrate(conf);
+    }
+
+    protected String getConfigFile() {
+
+        String profile = System.properties["profile"];
+        String cfgFile = "goose.properties";
+        if (profile != null && !profile.trim().equals("")) {
+            cfgFile = "goose-${profile.trim()}.properties";
+        }
+
+        return cfgFile;
     }
 
     protected void help() {
