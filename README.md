@@ -19,7 +19,7 @@ Inside your `build.gralde`
 ```
 apply plugin:"kante.goose.migration"
 ```
-Make sure `kante.goose:goose:1.0-SNAPSHOT` is in your builscript classpath
+Make sure `kante.goose:goose:{version}` is in your builscript classpath
 
 Configuration
 ----
