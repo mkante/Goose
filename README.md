@@ -1,3 +1,5 @@
+> THIS PROJECT IS DEPRECATED!!! IT HAS BEEN REPLACED BY [goose.js](https://github.com/mkante/goose.js)
+
 Goose
 ---
 A database migration plugin for Gradle. This was inspired from Laravel artisan migration tool.
